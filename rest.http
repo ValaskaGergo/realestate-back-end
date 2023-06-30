@@ -1,0 +1,15 @@
+GET https://api.anlibreeders.com/get-api-status
+Content-Type: application/json
+X-Api-Key: d330bd488282ed02d0256e0ee704114776dfd0b28ca1eb667a875193ca8d63d1
+
+###
+
+GET https://api.anlibreeders.com/set-exchange
+Content-Type: application/json
+X-Api-Key: d330bd488282ed02d0256e0ee704114776dfd0b28ca1eb667a875193ca8d63d1
+
+###
+
+POST https://api.anlibreeders.com/animal-age-update
+Content-Type: application/json
+X-Api-Key: d330bd488282ed02d0256e0ee704114776dfd0b28ca1eb667a875193ca8d63d1
