@@ -36,7 +36,6 @@ def upgrade():
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('subcategory_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(), nullable=True),
-    sa.Column('chip', sa.String(), nullable=True),
     sa.Column('height', sa.INTEGER(), nullable=True),
     sa.Column('age_year', sa.INTEGER(), nullable=True),
     sa.Column('age_month', sa.INTEGER(), nullable=True),

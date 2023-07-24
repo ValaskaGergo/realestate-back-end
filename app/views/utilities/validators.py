@@ -730,7 +730,7 @@ class Validation(object):
         return payload
 
     @staticmethod
-    def uploading_animal(category_id, subcategory_id, name, chip, height, age_year, age_month, age_day, country_origin,
+    def uploading_animal(category_id, subcategory_id, name, age_year, age_month, age_day, country_origin,
                          country_residence, is_be_used_for,
                          be_used_for_hu, be_used_for_en, be_used_for_de, be_used_for_fr,
                          be_used_for_es, is_gender, gender_hu,
@@ -748,8 +748,6 @@ class Validation(object):
             "category_id": "",
             "subcategory_id": "",
             "name": "",
-            "chip": "",
-            "height": "",
             "age_year": "",
             "age_month": "",
             "age_day": "",
@@ -790,9 +788,6 @@ class Validation(object):
         category_id_result = bool(category_id and category_id.strip())
         subcategory_id_result = bool(subcategory_id and subcategory_id.strip())
         name_result = bool(name and name.strip())
-        chip_result = bool(chip and chip.strip())
-        height_pattern = RegExp.numeric()
-        height_result = re.match(height_pattern, height)
         age_year_result = bool(age_year and age_year.strip())
         age_month_result = bool(age_month and age_month.strip())
         age_day_result = bool(age_day and age_day.strip())
@@ -856,16 +851,6 @@ class Validation(object):
             payload["message"]["name"] = "anlihouse-A17"
         else:
             del payload["message"]["name"]
-
-        if chip_result is not True:
-            payload["message"]["chip"] = "anlihouse-A17"
-        else:
-            del payload["message"]["chip"]
-
-        if height_result is None:
-            payload["message"]["height"] = "anlihouse-A17"
-        else:
-            del payload["message"]["height"]
 
         if age_year_result is not True:
             payload["message"]["age_year"] = "anlihouse-A17"
@@ -1075,8 +1060,6 @@ class Validation(object):
         if payload.get("message", {}).get("category_id") \
                 or payload.get("message", {}).get("subcategory_id") \
                 or payload.get("message", {}).get("name") \
-                or payload.get("message", {}).get("chip") \
-                or payload.get("message", {}).get("height") \
                 or payload.get("message", {}).get("age_year") \
                 or payload.get("message", {}).get("age_month") \
                 or payload.get("message", {}).get("age_day") \

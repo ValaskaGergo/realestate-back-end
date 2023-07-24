@@ -28,8 +28,6 @@ uploading_animal.add_argument('animal_id', required=False)
 uploading_animal.add_argument('category_id', required=False)
 uploading_animal.add_argument('subcategory_id', required=False)
 uploading_animal.add_argument('name', required=False)
-uploading_animal.add_argument('chip', required=False)
-uploading_animal.add_argument('height', required=False)
 uploading_animal.add_argument('age_year', required=False)
 uploading_animal.add_argument('age_month', required=False)
 uploading_animal.add_argument('age_day', required=False)
@@ -152,6 +150,7 @@ class UploadingAnimal(Resource):
     def post():
         api_key = request.headers['X-Api-Key']
         data = uploading_animal.parse_args()
+        app.logger.info(data)
 
         last_modification_user_email = data['last_modification_user_email']
         email = data['email']
@@ -159,8 +158,6 @@ class UploadingAnimal(Resource):
         category_id = data['category_id']
         subcategory_id = data['subcategory_id']
         name = data['name']
-        chip = data['chip']
-        height = data['height']
         age_year = data['age_year']
         age_month = data['age_month']
         age_day = data['age_day']
@@ -248,7 +245,7 @@ class UploadingAnimal(Resource):
 
         if api_key == app.config['API_KEY']:
             try:
-                validation = Validation.uploading_animal(category_id, subcategory_id, name, chip, height, age_year,
+                validation = Validation.uploading_animal(category_id, subcategory_id, name, age_year,
                                                          age_month, age_day, country_origin, country_residence,
                                                          is_be_used_for,
                                                          be_used_for_hu, be_used_for_en, be_used_for_de, be_used_for_fr,
@@ -548,8 +545,6 @@ class UploadingAnimal(Resource):
                                 category_id=category_id,
                                 subcategory_id=subcategory_id,
                                 name=name,
-                                chip=chip,
-                                height=height,
                                 age_year=age_year,
                                 age_month=age_month,
                                 age_day=age_day,
@@ -597,6 +592,7 @@ class UploadingAnimal(Resource):
                                 url_01=url_01,
                                 url_02=url_02,
                                 price=price,
+
                                 last_modification_user_id=last_modification_user.id,
                                 last_modification_user_name=last_modification_user_profile.username
                             )
@@ -665,8 +661,6 @@ class UploadingAnimal(Resource):
                             animal_query.category_id = category_id
                             animal_query.subcategory_id = subcategory_id
                             animal_query.name = name
-                            animal_query.chip = chip
-                            animal_query.height = height
                             animal_query.age_year = age_year
                             animal_query.age_month = age_month
                             animal_query.age_day = age_day
@@ -889,7 +883,6 @@ class ListOfUploadedAnimals(Resource):
                                 "category_id": animal.category_id,
                                 "subcategory_id": animal.subcategory_id,
                                 "name": animal.name,
-                                "chip": animal.chip,
                                 "height": animal.height,
                                 "age_year": animal.age_year,
                                 "age_month": animal.age_month,
@@ -1046,7 +1039,6 @@ class EditOfUploadedAnimal(Resource):
                             "category_id": animal.category_id,
                             "subcategory_id": animal.subcategory_id,
                             "name": animal.name,
-                            "chip": animal.chip,
                             "height": animal.height,
                             "age_year": animal.age_year,
                             "age_month": animal.age_month,

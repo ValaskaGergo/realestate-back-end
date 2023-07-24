@@ -659,8 +659,6 @@ class Animal(db.Model, DBCommit):
     category_id = db.Column(db.Integer, unique=False, nullable=True)
     subcategory_id = db.Column(db.Integer, unique=False, nullable=True)
     name = db.Column(db.String, unique=False, nullable=True)
-    chip = db.Column(db.String, unique=False, nullable=True)
-    height = db.Column(db.INTEGER, unique=False, nullable=True)
     age_year = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
     age_month = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
     age_day = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
@@ -741,7 +739,7 @@ class Animal(db.Model, DBCommit):
                                 cascade='save-update, delete',
                                 lazy='dynamic')
 
-    def __init__(self, user_id, advertisement_id, category_id, subcategory_id, name, chip, height, age_year, age_month, age_day, years,
+    def __init__(self, user_id, advertisement_id, category_id, subcategory_id, name, age_year, age_month, age_day, years,
                  months, days, region_origin, country_origin, region_residence, country_residence, be_used_for_hu,
                  be_used_for_en, be_used_for_de, be_used_for_fr, be_used_for_es, gender_hu, gender_en, gender_de,
                  gender_fr, gender_es, color_hu, color_en, color_de, color_fr, color_es, brief_description,
@@ -755,8 +753,6 @@ class Animal(db.Model, DBCommit):
         self.category_id = category_id
         self.subcategory_id = subcategory_id
         self.name = name
-        self.chip = chip
-        self.height = height
         self.age_year = age_year
         self.age_month = age_month
         self.age_day = age_day

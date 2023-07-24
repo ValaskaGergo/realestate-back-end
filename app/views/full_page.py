@@ -382,7 +382,6 @@ class FullPage(Resource):
                                 "country_origin": animal_query.country_origin,
                                 "region_residence": animal_query.region_residence,
                                 "country_residence": animal_query.country_residence,
-                                "chip": animal_query.chip,
                                 "url_01": animal_query.url_01,
                                 "url_02": animal_query.url_02,
                                 "visibility": animal_query.visibility,

@@ -431,7 +431,6 @@ class UserManagementListOfUploadedAnimals(Resource):
                                 "category_id": animal.category_id,
                                 "subcategory_id": animal.subcategory_id,
                                 "name": animal.name,
-                                "chip": animal.chip,
                                 "height": animal.height,
                                 "age_year": animal.age_year,
                                 "age_month": animal.age_month,
