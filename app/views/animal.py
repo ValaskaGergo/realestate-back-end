@@ -21,8 +21,6 @@ api = Api(mod)
 detectlanguage.configuration.api_key = app.config['DETECT_LANGUAGE_KEY']
 detectlanguage.configuration.secure = True
 
-# hello
-
 uploading_animal = reqparse.RequestParser()
 uploading_animal.add_argument('last_modification_user_email', required=True)
 uploading_animal.add_argument('email', required=True)
