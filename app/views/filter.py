@@ -59,8 +59,6 @@ get_filter_count.add_argument('color_all')
 get_filter_count.add_argument('be_used_for_all')
 get_filter_count.add_argument('age_min')
 get_filter_count.add_argument('age_max')
-get_filter_count.add_argument('height_min')
-get_filter_count.add_argument('height_max')
 get_filter_count.add_argument('region_residence')
 get_filter_count.add_argument('country_residence')
 get_filter_count.add_argument('region_origin')
@@ -485,9 +483,6 @@ class GetFilterCount(Resource):
         age_min = data['age_min']
         age_max = data['age_max']
 
-        height_min = data['height_min']
-        height_max = data['height_max']
-
         region_residence = data['region_residence']
         country_residence = data['country_residence']
 
@@ -525,9 +520,6 @@ class GetFilterCount(Resource):
 
         filters_age_or = []
         filters_age_and = []
-
-        filters_height_or = []
-        filters_height_and = []
 
         filters_country_or = []
         filters_country_and = []
@@ -790,10 +782,6 @@ class GetFilterCount(Resource):
                     filters_age_and.append(Animal.years <= age_max)
                     #  End Age
 
-                    #  Start Height
-                    filters_height_and.append(Animal.height >= height_min)
-                    filters_height_and.append(Animal.height <= height_max)
-                    #  End Height
                 #  End Category
 
                 #  Start Country Residence
@@ -819,7 +807,6 @@ class GetFilterCount(Resource):
                     .filter(or_(*filters_color_or)) \
                     .filter(or_(*filters_beusedfor_or)) \
                     .filter(and_(*filters_age_and)) \
-                    .filter(and_(*filters_height_and)) \
                     .filter(and_(*filters_country_and)) \
                     .filter(and_(*filters_and)) \
                     .filter(or_(*filters_or)) \
@@ -906,9 +893,6 @@ class GetFilterData(Resource):
         age_min = decode['age_min']
         age_max = decode['age_max']
 
-        height_min = decode['height_min']
-        height_max = decode['height_max']
-
         region_residence = decode['region_residence']
         country_residence = decode['country_residence']
 
@@ -917,7 +901,7 @@ class GetFilterData(Resource):
 
         order_by_price = decode['order_by_price']
         order_by_age = decode['order_by_age']
-        order_by_height = decode['order_by_height']
+
         order_by_rating = decode['order_by_rating']
 
         only_one_category_id = decode['only_one_category_id']
@@ -960,9 +944,6 @@ class GetFilterData(Resource):
 
         filters_age_or = []
         filters_age_and = []
-
-        filters_height_or = []
-        filters_height_and = []
 
         filters_country_or = []
         filters_country_and = []
@@ -1228,10 +1209,6 @@ class GetFilterData(Resource):
                     filters_age_and.append(Animal.years <= age_max)
                     #  End Age
 
-                    #  Start Height
-                    filters_height_and.append(Animal.height >= height_min)
-                    filters_height_and.append(Animal.height <= height_max)
-                    #  End Height
                 #  End Category
 
                 #  Start Country Residence
@@ -1265,13 +1242,7 @@ class GetFilterData(Resource):
                         filters_order_by.append(desc(Animal.years))
                         filters_order_by.append(desc(Animal.months))
                         filters_order_by.append(desc(Animal.created_at))
-                elif order_by_height != "None":
-                    if order_by_height == "asc":
-                        filters_order_by.append(asc(Animal.height))
-                        filters_order_by.append(desc(Animal.created_at))
-                    elif order_by_height == "desc":
-                        filters_order_by.append(desc(Animal.height))
-                        filters_order_by.append(desc(Animal.created_at))
+
                 elif order_by_rating != "None":
                     if order_by_rating == "asc":
                         filters_order_by.append(asc(Animal.rating))
@@ -1291,7 +1262,6 @@ class GetFilterData(Resource):
                     .filter(or_(*filters_color_or)) \
                     .filter(or_(*filters_beusedfor_or)) \
                     .filter(and_(*filters_age_and)) \
-                    .filter(and_(*filters_height_and)) \
                     .filter(and_(*filters_country_and)) \
                     .filter(and_(*filters_and)) \
                     .filter(or_(*filters_or)) \
@@ -1400,7 +1370,6 @@ class GetFilterData(Resource):
                                     "category_id": animal.category_id,
                                     "subcategory_id": animal.subcategory_id,
                                     "name": animal.name,
-                                    "height": animal.height,
                                     "age_year": animal.age_year,
                                     "age_month": animal.age_month,
                                     "age_day": animal.age_day,
@@ -1495,7 +1464,6 @@ class GetFilterData(Resource):
                                 },
                                 "pdf": {
                                     "id": pdf.id,
-                                    "medical_paper": pdf.medical_paper,
                                     "breed_registry": pdf.breed_registry,
                                     "x_ray": pdf.x_ray
                                 },
@@ -1585,7 +1553,6 @@ class GetFilterData(Resource):
                         .filter(or_(*filters_color_or)) \
                         .filter(or_(*filters_beusedfor_or)) \
                         .filter(and_(*filters_age_and)) \
-                        .filter(and_(*filters_height_and)) \
                         .filter(and_(*filters_country_and)) \
                         .filter(and_(*filters_and)) \
                         .filter(or_(*filters_or)) \

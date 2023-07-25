@@ -399,7 +399,6 @@ class UserManagementListOfUploadedAnimals(Resource):
                         for pdf in animal.pdf:
                             pdf_item = {
                                 "id": pdf.id,
-                                "medical_paper": pdf.medical_paper,
                                 "breed_registry": pdf.breed_registry,
                                 "x_ray": pdf.x_ray,
                                 "created_at": pdf.created_at,
@@ -431,7 +430,6 @@ class UserManagementListOfUploadedAnimals(Resource):
                                 "category_id": animal.category_id,
                                 "subcategory_id": animal.subcategory_id,
                                 "name": animal.name,
-                                "height": animal.height,
                                 "age_year": animal.age_year,
                                 "age_month": animal.age_month,
                                 "age_day": animal.age_day,

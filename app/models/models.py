@@ -905,8 +905,6 @@ class AnimalPDF(db.Model, DBCommit):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, unique=False, nullable=True)
     animal_id = db.Column(db.Integer, unique=False, nullable=True)
-    medical_paper = db.Column(db.String, unique=False, nullable=True)
-    medical_paper_data = db.Column(db.String, unique=False, nullable=True)
     breed_registry = db.Column(db.String, unique=False, nullable=True)
     breed_registry_data = db.Column(db.String, unique=False, nullable=True)
     x_ray = db.Column(db.String, unique=False, nullable=True)
@@ -914,12 +912,10 @@ class AnimalPDF(db.Model, DBCommit):
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
     updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
 
-    def __init__(self, user_id, animal_id, medical_paper, medical_paper_data, breed_registry, breed_registry_data,
+    def __init__(self, user_id, animal_id, breed_registry, breed_registry_data,
                  x_ray, x_ray_data):
         self.user_id = user_id
         self.animal_id = animal_id
-        self.medical_paper = medical_paper
-        self.medical_paper_data = medical_paper_data
         self.breed_registry = breed_registry
         self.breed_registry_data = breed_registry_data
         self.x_ray = x_ray

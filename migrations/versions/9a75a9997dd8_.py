@@ -98,8 +98,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('animal_id', sa.Integer(), nullable=True),
-    sa.Column('medical_paper', sa.String(), nullable=True),
-    sa.Column('medical_paper_data', sa.String(), nullable=True),
     sa.Column('breed_registry', sa.String(), nullable=True),
     sa.Column('breed_registry_data', sa.String(), nullable=True),
     sa.Column('x_ray', sa.String(), nullable=True),

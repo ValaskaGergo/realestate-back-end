@@ -741,7 +741,7 @@ class Validation(object):
                          father, father_mother, father_mother_mother,
                          father_mother_father, father_father, father_father_mother,
                          father_father_father, img_01_data, img_02_data, img_03_data,
-                         img_04_data, video_01_data, url_01, url_02, medical_paper_data, breed_registry_data,
+                         img_04_data, video_01_data, url_01, url_02, breed_registry_data,
                          x_ray_data, price):
 
         payload = {"status": "", "message": {
@@ -779,7 +779,6 @@ class Validation(object):
             "video_01_data": "",
             "url_01": "",
             "url_02": "",
-            "medical_paper_data": "",
             "breed_registry_data": "",
             "x_ray_data": "",
             "price": ""
@@ -831,7 +830,6 @@ class Validation(object):
         video_01_data_result = bool(video_01_data and video_01_data.strip())
         url_01_result = bool(url_01 and url_01.strip())
         url_02_result = bool(url_02 and url_02.strip())
-        medical_paper_data_result = bool(medical_paper_data and medical_paper_data.strip())
         breed_registry_data_result = bool(breed_registry_data and breed_registry_data.strip())
         x_ray_data_result = bool(x_ray_data and x_ray_data.strip())
         price_pattern = RegExp.numeric()
@@ -1037,11 +1035,6 @@ class Validation(object):
         else:
             del payload["message"]["url_02"]
 
-        if medical_paper_data_result is not True:
-            payload["message"]["medical_paper_data"] = "anlihouse-A17"
-        else:
-            del payload["message"]["medical_paper_data"]
-
         if breed_registry_data_result is not True:
             payload["message"]["breed_registry_data"] = "anlihouse-A17"
         else:
@@ -1090,7 +1083,6 @@ class Validation(object):
                 or payload.get("message", {}).get("video_01_data") \
                 or payload.get("message", {}).get("url_01") \
                 or payload.get("message", {}).get("url_02") \
-                or payload.get("message", {}).get("medical_paper_data") \
                 or payload.get("message", {}).get("breed_registry_data") \
                 or payload.get("message", {}).get("x_ray_data") \
                 or payload.get("message", {}).get("price"):

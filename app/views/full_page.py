@@ -372,7 +372,6 @@ class FullPage(Resource):
                                 "color_de": animal_query.color_de,
                                 "color_fr": animal_query.color_fr,
                                 "color_es": animal_query.color_es,
-                                "height": animal_query.height,
                                 "be_used_for_hu": animal_query.be_used_for_hu,
                                 "be_used_for_en": animal_query.be_used_for_en,
                                 "be_used_for_de": animal_query.be_used_for_de,
@@ -405,8 +404,6 @@ class FullPage(Resource):
                                 "img_10": photos.img_10,
                             },
                             "pdf": {
-                                "medical_paper": pdf.medical_paper,
-                                "medical_paper_data": pdf.medical_paper_data,
                                 "breed_registry": pdf.breed_registry,
                                 "breed_registry_data": pdf.breed_registry_data,
                                 "x_ray": pdf.x_ray,

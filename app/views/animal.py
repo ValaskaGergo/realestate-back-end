@@ -103,9 +103,6 @@ uploading_animal.add_argument('img_10_status', required=False)
 uploading_animal.add_argument('video_01_data', required=False)
 uploading_animal.add_argument('url_01', required=False)
 uploading_animal.add_argument('url_02', required=False)
-uploading_animal.add_argument('medical_paper_data', required=False)
-uploading_animal.add_argument('medical_paper_data_old', required=False)
-uploading_animal.add_argument('medical_paper_status', required=False)
 uploading_animal.add_argument('breed_registry_data', required=False)
 uploading_animal.add_argument('breed_registry_data_old', required=False)
 uploading_animal.add_argument('breed_registry_status', required=False)
@@ -232,9 +229,6 @@ class UploadingAnimal(Resource):
         video_01_data = data['video_01_data']
         url_01 = data['url_01']
         url_02 = data['url_02']
-        medical_paper_data = data['medical_paper_data']
-        medical_paper_data_old = data['medical_paper_data_old']
-        medical_paper_status = data['medical_paper_status']
         breed_registry_data = data['breed_registry_data']
         breed_registry_data_old = data['breed_registry_data_old']
         breed_registry_status = data['breed_registry_status']
@@ -258,7 +252,7 @@ class UploadingAnimal(Resource):
                                                          father, father_mother, father_mother_mother,
                                                          father_mother_father, father_father, father_father_mother,
                                                          father_father_father, img_01_data, img_02_data, img_03_data,
-                                                         img_04_data, video_01_data, url_01, url_02, medical_paper_data,
+                                                         img_04_data, video_01_data, url_01, url_02,
                                                          breed_registry_data, x_ray_data, price)
                 if validation['status'] == "success":
 
@@ -492,20 +486,6 @@ class UploadingAnimal(Resource):
                         video_01_data = None
                         video_01 = None
 
-                    if medical_paper_status == "rm":
-                        medical_paper_data = None
-                        medical_paper = None
-                    elif medical_paper_status is None or medical_paper_status == "" or medical_paper_status == "new" or medical_paper_status == "unchanged":
-                        if medical_paper_data:
-                            medical_paper_data_json = json.loads(medical_paper_data)
-                            medical_paper = medical_paper_data_json['filename']
-                        else:
-                            medical_paper_data = None
-                            medical_paper = None
-                    else:
-                        medical_paper_data = None
-                        medical_paper = None
-
                     if breed_registry_status == "rm":
                         breed_registry_data = None
                         breed_registry = None
@@ -639,8 +619,6 @@ class UploadingAnimal(Resource):
                             animal_pdf_payload = AnimalPDF(
                                 user_id=user.id,
                                 animal_id=animal_payload.id,
-                                medical_paper=medical_paper,
-                                medical_paper_data=medical_paper_data,
                                 breed_registry=breed_registry,
                                 breed_registry_data=breed_registry_data,
                                 x_ray=x_ray,
@@ -751,8 +729,7 @@ class UploadingAnimal(Resource):
                                 .query.join(Animal.pdf) \
                                 .filter(Animal.id == animal_query.id).first()
 
-                            animal_pdf_payload.medical_paper = medical_paper,
-                            animal_pdf_payload.medical_paper_data = medical_paper_data,
+
                             animal_pdf_payload.breed_registry = breed_registry,
                             animal_pdf_payload.breed_registry_data = breed_registry_data,
                             animal_pdf_payload.x_ray = x_ray,
@@ -760,7 +737,7 @@ class UploadingAnimal(Resource):
                             animal_pdf_payload.db_post()
 
                         data = {"status": 'success', 'animal_video_id': animal_video_payload.id,
-                                'video_01_data': video_01_data, "medical_paper_data": medical_paper_data,
+                                'video_01_data': video_01_data,
                                 "breed_registry_data": breed_registry_data, "x_ray_data": x_ray_data,
                                 "is_editing": is_editing, "animal_id": animal_id}
                         return make_response(jsonify(data), 200)
@@ -851,7 +828,6 @@ class ListOfUploadedAnimals(Resource):
                         for pdf in animal.pdf:
                             pdf_item = {
                                 "id": pdf.id,
-                                "medical_paper": pdf.medical_paper,
                                 "breed_registry": pdf.breed_registry,
                                 "x_ray": pdf.x_ray,
                                 "created_at": pdf.created_at,
@@ -883,7 +859,6 @@ class ListOfUploadedAnimals(Resource):
                                 "category_id": animal.category_id,
                                 "subcategory_id": animal.subcategory_id,
                                 "name": animal.name,
-                                "height": animal.height,
                                 "age_year": animal.age_year,
                                 "age_month": animal.age_month,
                                 "age_day": animal.age_day,
@@ -1024,8 +999,6 @@ class EditOfUploadedAnimal(Resource):
                     for pdf in animal.pdf:
                         pdf_item = {
                             "id": pdf.id,
-                            "medical_paper": pdf.medical_paper,
-                            "medical_paper_data": pdf.medical_paper_data,
                             "breed_registry": pdf.breed_registry,
                             "breed_registry_data": pdf.breed_registry_data,
                             "x_ray": pdf.x_ray,
@@ -1039,7 +1012,6 @@ class EditOfUploadedAnimal(Resource):
                             "category_id": animal.category_id,
                             "subcategory_id": animal.subcategory_id,
                             "name": animal.name,
-                            "height": animal.height,
                             "age_year": animal.age_year,
                             "age_month": animal.age_month,
                             "age_day": animal.age_day,
