@@ -659,14 +659,6 @@ class Animal(db.Model, DBCommit):
     category_id = db.Column(db.Integer, unique=False, nullable=True)
     subcategory_id = db.Column(db.Integer, unique=False, nullable=True)
     name = db.Column(db.String, unique=False, nullable=True)
-    age_year = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    age_month = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    age_day = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    years = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    months = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    days = db.Column(db.INTEGER, unique=False, nullable=True, default=0)
-    region_origin = db.Column(db.String, unique=False, nullable=True)
-    country_origin = db.Column(db.String, unique=False, nullable=True)
     region_residence = db.Column(db.String, unique=False, nullable=True)
     country_residence = db.Column(db.String, unique=False, nullable=True)
     be_used_for_hu = db.Column(db.String, unique=False, nullable=True)
@@ -688,20 +680,6 @@ class Animal(db.Model, DBCommit):
     brief_description_detect_lang = db.Column(db.String, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
     description_detect_lang = db.Column(db.String, unique=False, nullable=True)
-    mother = db.Column(db.String, unique=False, nullable=True)
-    mother_mother = db.Column(db.String, unique=False, nullable=True)
-    mother_mother_mother = db.Column(db.String, unique=False, nullable=True)
-    mother_mother_father = db.Column(db.String, unique=False, nullable=True)
-    mother_father = db.Column(db.String, unique=False, nullable=True)
-    mother_father_mother = db.Column(db.String, unique=False, nullable=True)
-    mother_father_father = db.Column(db.String, unique=False, nullable=True)
-    father = db.Column(db.String, unique=False, nullable=True)
-    father_mother = db.Column(db.String, unique=False, nullable=True)
-    father_mother_mother = db.Column(db.String, unique=False, nullable=True)
-    father_mother_father = db.Column(db.String, unique=False, nullable=True)
-    father_father = db.Column(db.String, unique=False, nullable=True)
-    father_father_mother = db.Column(db.String, unique=False, nullable=True)
-    father_father_father = db.Column(db.String, unique=False, nullable=True)
     page_url = db.Column(db.String, unique=False, nullable=True)
     url_01 = db.Column(db.String, unique=False, nullable=True)
     url_02 = db.Column(db.String, unique=False, nullable=True)
@@ -739,28 +717,18 @@ class Animal(db.Model, DBCommit):
                                 cascade='save-update, delete',
                                 lazy='dynamic')
 
-    def __init__(self, user_id, advertisement_id, category_id, subcategory_id, name, age_year, age_month, age_day, years,
-                 months, days, region_origin, country_origin, region_residence, country_residence, be_used_for_hu,
+    def __init__(self, user_id, advertisement_id, category_id, subcategory_id, name,
+                 region_residence, country_residence, be_used_for_hu,
                  be_used_for_en, be_used_for_de, be_used_for_fr, be_used_for_es, gender_hu, gender_en, gender_de,
                  gender_fr, gender_es, color_hu, color_en, color_de, color_fr, color_es, brief_description,
-                 brief_description_detect_lang, description, description_detect_lang, mother, mother_mother,
-                 mother_mother_mother, mother_mother_father, mother_father, mother_father_mother, mother_father_father,
-                 father, father_mother, father_mother_mother, father_mother_father, father_father, father_father_mother,
-                 father_father_father, page_url, url_01, url_02, price, last_modification_user_id,
+                 brief_description_detect_lang, description, description_detect_lang, page_url, url_01, url_02, price,
+                 last_modification_user_id,
                  last_modification_user_name):
         self.user_id = user_id
         self.advertisement_id = advertisement_id
         self.category_id = category_id
         self.subcategory_id = subcategory_id
         self.name = name
-        self.age_year = age_year
-        self.age_month = age_month
-        self.age_day = age_day
-        self.years = years
-        self.months = months
-        self.days = days
-        self.region_origin = region_origin
-        self.country_origin = country_origin
         self.region_residence = region_residence
         self.country_residence = country_residence
         self.be_used_for_hu = be_used_for_hu
@@ -783,20 +751,6 @@ class Animal(db.Model, DBCommit):
         self.description = description
         self.description_detect_lang = description_detect_lang
         self.page_url = page_url
-        self.mother = mother
-        self.mother_mother = mother_mother
-        self.mother_mother_mother = mother_mother_mother
-        self.mother_mother_father = mother_mother_father
-        self.mother_father = mother_father
-        self.mother_father_mother = mother_father_mother
-        self.mother_father_father = mother_father_father
-        self.father = father
-        self.father_mother = father_mother
-        self.father_mother_mother = father_mother_mother
-        self.father_mother_father = father_mother_father
-        self.father_father = father_father
-        self.father_father_mother = father_father_mother
-        self.father_father_father = father_father_father
         self.url_01 = url_01
         self.url_02 = url_02
         self.price = price
@@ -905,19 +859,15 @@ class AnimalPDF(db.Model, DBCommit):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, unique=False, nullable=True)
     animal_id = db.Column(db.Integer, unique=False, nullable=True)
-    breed_registry = db.Column(db.String, unique=False, nullable=True)
-    breed_registry_data = db.Column(db.String, unique=False, nullable=True)
     x_ray = db.Column(db.String, unique=False, nullable=True)
     x_ray_data = db.Column(db.String, unique=False, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
     updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
 
-    def __init__(self, user_id, animal_id, breed_registry, breed_registry_data,
+    def __init__(self, user_id, animal_id,
                  x_ray, x_ray_data):
         self.user_id = user_id
         self.animal_id = animal_id
-        self.breed_registry = breed_registry
-        self.breed_registry_data = breed_registry_data
         self.x_ray = x_ray
         self.x_ray_data = x_ray_data
 

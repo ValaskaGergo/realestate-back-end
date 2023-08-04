@@ -35,21 +35,6 @@ get_filter_count.add_argument('where_input')
 get_filter_count.add_argument('where_all')
 get_filter_count.add_argument('where_name')
 get_filter_count.add_argument('where_description')
-get_filter_count.add_argument('where_family')
-get_filter_count.add_argument('where_family_mother')
-get_filter_count.add_argument('where_family_mother_mother')
-get_filter_count.add_argument('where_family_mother_father')
-get_filter_count.add_argument('where_family_mother_mother_mother')
-get_filter_count.add_argument('where_family_mother_mother_father')
-get_filter_count.add_argument('where_family_mother_father_mother')
-get_filter_count.add_argument('where_family_mother_father_father')
-get_filter_count.add_argument('where_family_father')
-get_filter_count.add_argument('where_family_father_mother')
-get_filter_count.add_argument('where_family_father_father')
-get_filter_count.add_argument('where_family_father_mother_mother')
-get_filter_count.add_argument('where_family_father_mother_father')
-get_filter_count.add_argument('where_family_father_father_mother')
-get_filter_count.add_argument('where_family_father_father_father')
 get_filter_count.add_argument('price_min')
 get_filter_count.add_argument('price_max')
 get_filter_count.add_argument('category_all')
@@ -57,12 +42,8 @@ get_filter_count.add_argument('subcategory_all')
 get_filter_count.add_argument('gender_all')
 get_filter_count.add_argument('color_all')
 get_filter_count.add_argument('be_used_for_all')
-get_filter_count.add_argument('age_min')
-get_filter_count.add_argument('age_max')
 get_filter_count.add_argument('region_residence')
 get_filter_count.add_argument('country_residence')
-get_filter_count.add_argument('region_origin')
-get_filter_count.add_argument('country_origin')
 get_filter_count.add_argument('seller_user_id')
 get_filter_count.add_argument('seller_user_name')
 get_filter_count.add_argument('wishlist')
@@ -450,22 +431,6 @@ class GetFilterCount(Resource):
         where_all = data['where_all']  # active or inactive
         where_name = data['where_name']  # active or inactive
         where_description = data['where_description']  # active or inactive
-        where_family = data['where_family']  # active or inactive
-
-        where_family_mother = data['where_family_mother']  # active or inactive
-        where_family_mother_mother = data['where_family_mother_mother']  # active or inactive
-        where_family_mother_father = data['where_family_mother_father']  # active or inactive
-        where_family_mother_mother_mother = data['where_family_mother_mother_mother']  # active or inactive
-        where_family_mother_mother_father = data['where_family_mother_mother_father']  # active or inactive
-        where_family_mother_father_mother = data['where_family_mother_father_mother']  # active or inactive
-        where_family_mother_father_father = data['where_family_mother_father_father']  # active or inactive
-        where_family_father = data['where_family_father']  # active or inactive
-        where_family_father_mother = data['where_family_father_mother']  # active or inactive
-        where_family_father_father = data['where_family_father_father']  # active or inactive
-        where_family_father_mother_mother = data['where_family_father_mother_mother']  # active or inactive
-        where_family_father_mother_father = data['where_family_father_mother_father']  # active or inactive
-        where_family_father_father_mother = data['where_family_father_father_mother']  # active or inactive
-        where_family_father_father_father = data['where_family_father_father_father']  # active or inactive
 
         price_min = int(data['price_min'])
         price_max = int(data['price_max'])
@@ -480,14 +445,10 @@ class GetFilterCount(Resource):
 
         be_used_for_all = data['be_used_for_all']
 
-        age_min = data['age_min']
-        age_max = data['age_max']
 
         region_residence = data['region_residence']
         country_residence = data['country_residence']
 
-        region_origin = data['region_origin']
-        country_origin = data['country_origin']
 
         seller_user_id = data['seller_user_id']
         seller_user_name = data['seller_user_name']
@@ -566,20 +527,6 @@ class GetFilterCount(Resource):
                         filters_like_or.append(Animal.name.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(Animal.brief_description.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(Animal.description.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(
                             func.cast(Animal.advertisement_id, String).ilike('%{}%'.format(where_input)))
                     elif where_all == "inactive":
@@ -588,78 +535,7 @@ class GetFilterCount(Resource):
                         if where_description == "active":
                             filters_like_or.append(Animal.brief_description.ilike('%{}%'.format(where_input)))
                             filters_like_or.append(Animal.description.ilike('%{}%'.format(where_input)))
-                        if where_family == "active" \
-                                and where_family_mother == "inactive" \
-                                and where_family_mother_mother == "inactive" \
-                                and where_family_mother_father == "inactive" \
-                                and where_family_mother_mother_mother == "inactive" \
-                                and where_family_mother_mother_father == "inactive" \
-                                and where_family_mother_father_mother == "inactive" \
-                                and where_family_mother_father_father == "inactive" \
-                                and where_family_father == "inactive" \
-                                and where_family_father_mother == "inactive" \
-                                and where_family_father_father == "inactive" \
-                                and where_family_father_mother_mother == "inactive" \
-                                and where_family_father_mother_father == "inactive" \
-                                and where_family_father_father_mother == "inactive" \
-                                and where_family_father_father_father == "inactive":
-                            filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
-                        elif where_family == "active" \
-                                and where_family_mother == "active" \
-                                or where_family_mother_mother == "active" \
-                                or where_family_mother_father == "active" \
-                                or where_family_mother_mother_mother == "active" \
-                                or where_family_mother_mother_father == "active" \
-                                or where_family_mother_father_mother == "active" \
-                                or where_family_mother_father_father == "active" \
-                                or where_family_father == "active" \
-                                or where_family_father_mother == "active" \
-                                or where_family_father_father == "active" \
-                                or where_family_father_mother_mother == "active" \
-                                or where_family_father_mother_father == "active" \
-                                or where_family_father_father_mother == "active" \
-                                or where_family_father_father_father == "active":
-                            if where_family_mother == "active":
-                                filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother == "active":
-                                filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father == "active":
-                                filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother_mother == "active":
-                                filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother_father == "active":
-                                filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father_mother == "active":
-                                filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father_father == "active":
-                                filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father == "active":
-                                filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother == "active":
-                                filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father == "active":
-                                filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother_mother == "active":
-                                filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother_father == "active":
-                                filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father_mother == "active":
-                                filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father_father == "active":
-                                filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
+
                 #  End Search Input
 
                 #  Start Price
@@ -791,12 +667,6 @@ class GetFilterCount(Resource):
                         filters_country_and.append(Animal.country_residence == country_residence)
                 #  End Country Residence
 
-                #  Start Country Origin
-                if region_origin != "ALL":
-                    filters_country_and.append(Animal.region_origin == region_origin)
-                    if country_origin != "ALL":
-                        filters_country_and.append(Animal.country_origin == country_origin)
-                #  End Country Origin
 
                 animal_query_count = Animal.query \
                     .filter(or_(*filters_like_or)) \
@@ -806,8 +676,6 @@ class GetFilterCount(Resource):
                     .filter(or_(*filters_gender_or)) \
                     .filter(or_(*filters_color_or)) \
                     .filter(or_(*filters_beusedfor_or)) \
-                    .filter(and_(*filters_age_and)) \
-                    .filter(and_(*filters_country_and)) \
                     .filter(and_(*filters_and)) \
                     .filter(or_(*filters_or)) \
                     .count()
@@ -860,22 +728,6 @@ class GetFilterData(Resource):
         where_all = decode['where_all']  # active or inactive
         where_name = decode['where_name']  # active or inactive
         where_description = decode['where_description']  # active or inactive
-        where_family = decode['where_family']  # active or inactive
-
-        where_family_mother = decode['where_family_mother']  # active or inactive
-        where_family_mother_mother = decode['where_family_mother_mother']  # active or inactive
-        where_family_mother_father = decode['where_family_mother_father']  # active or inactive
-        where_family_mother_mother_mother = decode['where_family_mother_mother_mother']  # active or inactive
-        where_family_mother_mother_father = decode['where_family_mother_mother_father']  # active or inactive
-        where_family_mother_father_mother = decode['where_family_mother_father_mother']  # active or inactive
-        where_family_mother_father_father = decode['where_family_mother_father_father']  # active or inactive
-        where_family_father = decode['where_family_father']  # active or inactive
-        where_family_father_mother = decode['where_family_father_mother']  # active or inactive
-        where_family_father_father = decode['where_family_father_father']  # active or inactive
-        where_family_father_mother_mother = decode['where_family_father_mother_mother']  # active or inactive
-        where_family_father_mother_father = decode['where_family_father_mother_father']  # active or inactive
-        where_family_father_father_mother = decode['where_family_father_father_mother']  # active or inactive
-        where_family_father_father_father = decode['where_family_father_father_father']  # active or inactive
 
         price_min = int(decode['price_min'])
         price_max = int(decode['price_max'])
@@ -890,17 +742,13 @@ class GetFilterData(Resource):
 
         be_used_for_all = decode['be_used_for_all']
 
-        age_min = decode['age_min']
-        age_max = decode['age_max']
+
 
         region_residence = decode['region_residence']
         country_residence = decode['country_residence']
 
-        region_origin = decode['region_origin']
-        country_origin = decode['country_origin']
 
         order_by_price = decode['order_by_price']
-        order_by_age = decode['order_by_age']
 
         order_by_rating = decode['order_by_rating']
 
@@ -993,20 +841,6 @@ class GetFilterData(Resource):
                         filters_like_or.append(Animal.name.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(Animal.brief_description.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(Animal.description.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                        filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
                         filters_like_or.append(
                             func.cast(Animal.advertisement_id, String).ilike('%{}%'.format(where_input)))
                     elif where_all == "inactive":
@@ -1015,78 +849,7 @@ class GetFilterData(Resource):
                         if where_description == "active":
                             filters_like_or.append(Animal.brief_description.ilike('%{}%'.format(where_input)))
                             filters_like_or.append(Animal.description.ilike('%{}%'.format(where_input)))
-                        if where_family == "active" \
-                                and where_family_mother == "inactive" \
-                                and where_family_mother_mother == "inactive" \
-                                and where_family_mother_father == "inactive" \
-                                and where_family_mother_mother_mother == "inactive" \
-                                and where_family_mother_mother_father == "inactive" \
-                                and where_family_mother_father_mother == "inactive" \
-                                and where_family_mother_father_father == "inactive" \
-                                and where_family_father == "inactive" \
-                                and where_family_father_mother == "inactive" \
-                                and where_family_father_father == "inactive" \
-                                and where_family_father_mother_mother == "inactive" \
-                                and where_family_father_mother_father == "inactive" \
-                                and where_family_father_father_mother == "inactive" \
-                                and where_family_father_father_father == "inactive":
-                            filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                            filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
-                        elif where_family == "active" \
-                                and where_family_mother == "active" \
-                                or where_family_mother_mother == "active" \
-                                or where_family_mother_father == "active" \
-                                or where_family_mother_mother_mother == "active" \
-                                or where_family_mother_mother_father == "active" \
-                                or where_family_mother_father_mother == "active" \
-                                or where_family_mother_father_father == "active" \
-                                or where_family_father == "active" \
-                                or where_family_father_mother == "active" \
-                                or where_family_father_father == "active" \
-                                or where_family_father_mother_mother == "active" \
-                                or where_family_father_mother_father == "active" \
-                                or where_family_father_father_mother == "active" \
-                                or where_family_father_father_father == "active":
-                            if where_family_mother == "active":
-                                filters_like_or.append(Animal.mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother == "active":
-                                filters_like_or.append(Animal.mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father == "active":
-                                filters_like_or.append(Animal.mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother_mother == "active":
-                                filters_like_or.append(Animal.mother_mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_mother_father == "active":
-                                filters_like_or.append(Animal.mother_mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father_mother == "active":
-                                filters_like_or.append(Animal.mother_father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_mother_father_father == "active":
-                                filters_like_or.append(Animal.mother_father_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father == "active":
-                                filters_like_or.append(Animal.father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother == "active":
-                                filters_like_or.append(Animal.father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father == "active":
-                                filters_like_or.append(Animal.father_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother_mother == "active":
-                                filters_like_or.append(Animal.father_mother_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_mother_father == "active":
-                                filters_like_or.append(Animal.father_mother_father.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father_mother == "active":
-                                filters_like_or.append(Animal.father_father_mother.ilike('%{}%'.format(where_input)))
-                            if where_family_father_father_father == "active":
-                                filters_like_or.append(Animal.father_father_father.ilike('%{}%'.format(where_input)))
+
                 #  End Search Input
 
                 #  Start Price
@@ -1218,12 +981,6 @@ class GetFilterData(Resource):
                         filters_country_and.append(Animal.country_residence == country_residence)
                 #  End Country Residence
 
-                #  Start Country Origin
-                if region_origin != "ALL":
-                    filters_country_and.append(Animal.region_origin == region_origin)
-                    if country_origin != "ALL":
-                        filters_country_and.append(Animal.country_origin == country_origin)
-                #  End Country Origin
 
                 #  Start Order By
                 if order_by_price != "None":
@@ -1232,15 +989,6 @@ class GetFilterData(Resource):
                         filters_order_by.append(desc(Animal.created_at))
                     elif order_by_price == "desc":
                         filters_order_by.append(desc(Animal.price))
-                        filters_order_by.append(desc(Animal.created_at))
-                elif order_by_age != "None":
-                    if order_by_age == "asc":
-                        filters_order_by.append(asc(Animal.years))
-                        filters_order_by.append(asc(Animal.months))
-                        filters_order_by.append(desc(Animal.created_at))
-                    elif order_by_age == "desc":
-                        filters_order_by.append(desc(Animal.years))
-                        filters_order_by.append(desc(Animal.months))
                         filters_order_by.append(desc(Animal.created_at))
 
                 elif order_by_rating != "None":
@@ -1261,8 +1009,6 @@ class GetFilterData(Resource):
                     .filter(or_(*filters_gender_or)) \
                     .filter(or_(*filters_color_or)) \
                     .filter(or_(*filters_beusedfor_or)) \
-                    .filter(and_(*filters_age_and)) \
-                    .filter(and_(*filters_country_and)) \
                     .filter(and_(*filters_and)) \
                     .filter(or_(*filters_or)) \
                     .order_by(*filters_order_by) \
@@ -1370,14 +1116,6 @@ class GetFilterData(Resource):
                                     "category_id": animal.category_id,
                                     "subcategory_id": animal.subcategory_id,
                                     "name": animal.name,
-                                    "age_year": animal.age_year,
-                                    "age_month": animal.age_month,
-                                    "age_day": animal.age_day,
-                                    "years": animal.years,
-                                    "months": animal.months,
-                                    "days": animal.days,
-                                    "region_origin": animal.region_origin,
-                                    "country_origin": animal.country_origin,
                                     "region_residence": animal.region_residence,
                                     "country_residence": animal.country_residence,
                                     "be_used_for_hu": animal.be_used_for_hu,
@@ -1399,20 +1137,6 @@ class GetFilterData(Resource):
                                     "brief_description_detect_lang": animal.brief_description_detect_lang,
                                     "description": animal.description,
                                     "description_detect_lang": animal.description_detect_lang,
-                                    "mother": animal.mother,
-                                    "mother_mother": animal.mother_mother,
-                                    "mother_mother_mother": animal.mother_mother_mother,
-                                    "mother_mother_father": animal.mother_mother_father,
-                                    "mother_father": animal.mother_father,
-                                    "mother_father_mother": animal.mother_father_mother,
-                                    "mother_father_father": animal.mother_father_father,
-                                    "father": animal.father,
-                                    "father_mother": animal.father_mother,
-                                    "father_mother_mother": animal.father_mother_mother,
-                                    "father_mother_father": animal.father_mother_father,
-                                    "father_father": animal.father_father,
-                                    "father_father_mother": animal.father_father_mother,
-                                    "father_father_father": animal.father_father_father,
                                     "page_url": animal.page_url,
                                     "url_01": animal.url_01,
                                     "url_02": animal.url_02,
@@ -1464,7 +1188,6 @@ class GetFilterData(Resource):
                                 },
                                 "pdf": {
                                     "id": pdf.id,
-                                    "breed_registry": pdf.breed_registry,
                                     "x_ray": pdf.x_ray
                                 },
                                 "rating": {

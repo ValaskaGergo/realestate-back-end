@@ -23,16 +23,11 @@ detectlanguage.configuration.secure = True
 
 uploading_animal = reqparse.RequestParser()
 uploading_animal.add_argument('last_modification_user_email', required=True)
+uploading_animal.add_argument('name', required=False)
 uploading_animal.add_argument('email', required=True)
 uploading_animal.add_argument('animal_id', required=False)
 uploading_animal.add_argument('category_id', required=False)
 uploading_animal.add_argument('subcategory_id', required=False)
-uploading_animal.add_argument('name', required=False)
-uploading_animal.add_argument('age_year', required=False)
-uploading_animal.add_argument('age_month', required=False)
-uploading_animal.add_argument('age_day', required=False)
-uploading_animal.add_argument('region_origin', required=False)
-uploading_animal.add_argument('country_origin', required=False)
 uploading_animal.add_argument('region_residence', required=False)
 uploading_animal.add_argument('country_residence', required=False)
 uploading_animal.add_argument('is_be_used_for', required=False)
@@ -55,20 +50,6 @@ uploading_animal.add_argument('color_fr', required=False)
 uploading_animal.add_argument('color_es', required=False)
 uploading_animal.add_argument('brief_description', required=False)
 uploading_animal.add_argument('description', required=False)
-uploading_animal.add_argument('mother', required=False)
-uploading_animal.add_argument('mother_mother', required=False)
-uploading_animal.add_argument('mother_mother_mother', required=False)
-uploading_animal.add_argument('mother_mother_father', required=False)
-uploading_animal.add_argument('mother_father', required=False)
-uploading_animal.add_argument('mother_father_mother', required=False)
-uploading_animal.add_argument('mother_father_father', required=False)
-uploading_animal.add_argument('father', required=False)
-uploading_animal.add_argument('father_mother', required=False)
-uploading_animal.add_argument('father_mother_mother', required=False)
-uploading_animal.add_argument('father_mother_father', required=False)
-uploading_animal.add_argument('father_father', required=False)
-uploading_animal.add_argument('father_father_mother', required=False)
-uploading_animal.add_argument('father_father_father', required=False)
 uploading_animal.add_argument('img_01_data', required=False)
 uploading_animal.add_argument('img_02_data', required=False)
 uploading_animal.add_argument('img_03_data', required=False)
@@ -103,9 +84,6 @@ uploading_animal.add_argument('img_10_status', required=False)
 uploading_animal.add_argument('video_01_data', required=False)
 uploading_animal.add_argument('url_01', required=False)
 uploading_animal.add_argument('url_02', required=False)
-uploading_animal.add_argument('breed_registry_data', required=False)
-uploading_animal.add_argument('breed_registry_data_old', required=False)
-uploading_animal.add_argument('breed_registry_status', required=False)
 uploading_animal.add_argument('x_ray_data', required=False)
 uploading_animal.add_argument('x_ray_data_old', required=False)
 uploading_animal.add_argument('x_ray_status', required=False)
@@ -155,11 +133,6 @@ class UploadingAnimal(Resource):
         category_id = data['category_id']
         subcategory_id = data['subcategory_id']
         name = data['name']
-        age_year = data['age_year']
-        age_month = data['age_month']
-        age_day = data['age_day']
-        region_origin = data['region_origin']
-        country_origin = data['country_origin']
         region_residence = data['region_residence']
         country_residence = data['country_residence']
         is_be_used_for = data['is_be_used_for']
@@ -182,20 +155,6 @@ class UploadingAnimal(Resource):
         color_es = data['color_es']
         brief_description = data['brief_description']
         description = data['description']
-        mother = data['mother']
-        mother_mother = data['mother_mother']
-        mother_mother_mother = data['mother_mother_mother']
-        mother_mother_father = data['mother_mother_father']
-        mother_father = data['mother_father']
-        mother_father_mother = data['mother_father_mother']
-        mother_father_father = data['mother_father_father']
-        father = data['father']
-        father_mother = data['father_mother']
-        father_mother_mother = data['father_mother_mother']
-        father_mother_father = data['father_mother_father']
-        father_father = data['father_father']
-        father_father_mother = data['father_father_mother']
-        father_father_father = data['father_father_father']
         img_01_data = data['img_01_data']
         img_02_data = data['img_02_data']
         img_03_data = data['img_03_data']
@@ -229,9 +188,6 @@ class UploadingAnimal(Resource):
         video_01_data = data['video_01_data']
         url_01 = data['url_01']
         url_02 = data['url_02']
-        breed_registry_data = data['breed_registry_data']
-        breed_registry_data_old = data['breed_registry_data_old']
-        breed_registry_status = data['breed_registry_status']
         x_ray_data = data['x_ray_data']
         x_ray_data_old = data['x_ray_data_old']
         x_ray_status = data['x_ray_status']
@@ -239,21 +195,16 @@ class UploadingAnimal(Resource):
 
         if api_key == app.config['API_KEY']:
             try:
-                validation = Validation.uploading_animal(category_id, subcategory_id, name, age_year,
-                                                         age_month, age_day, country_origin, country_residence,
+                validation = Validation.uploading_animal(category_id, subcategory_id, name,
+                                                         country_residence,
                                                          is_be_used_for,
                                                          be_used_for_hu, be_used_for_en, be_used_for_de, be_used_for_fr,
                                                          be_used_for_es, is_gender, gender_hu,
                                                          gender_en, gender_de, gender_fr, gender_es, is_color, color_hu,
                                                          color_en, color_de, color_fr, color_es, brief_description,
-                                                         description, mother,
-                                                         mother_mother, mother_mother_mother, mother_mother_father,
-                                                         mother_father, mother_father_mother, mother_father_father,
-                                                         father, father_mother, father_mother_mother,
-                                                         father_mother_father, father_father, father_father_mother,
-                                                         father_father_father, img_01_data, img_02_data, img_03_data,
+                                                         description, img_01_data, img_02_data, img_03_data,
                                                          img_04_data, video_01_data, url_01, url_02,
-                                                         breed_registry_data, x_ray_data, price)
+                                                         x_ray_data, price)
                 if validation['status'] == "success":
 
                     is_editing = None
@@ -268,9 +219,8 @@ class UploadingAnimal(Resource):
 
                     try:
                         today = datetime.now()
-                        date1 = datetime(int(age_year), int(age_month), int(age_day))
                         date2 = today
-                        diff = relativedelta.relativedelta(date2, date1)
+                        diff = relativedelta.relativedelta(date2)
                         years = diff.years
                         months = diff.months
                         days = diff.days
@@ -486,20 +436,6 @@ class UploadingAnimal(Resource):
                         video_01_data = None
                         video_01 = None
 
-                    if breed_registry_status == "rm":
-                        breed_registry_data = None
-                        breed_registry = None
-                    elif breed_registry_status is None or breed_registry_status == "" or breed_registry_status == "new" or breed_registry_status == "unchanged":
-                        if breed_registry_data:
-                            breed_registry_data_json = json.loads(breed_registry_data)
-                            breed_registry = breed_registry_data_json['filename']
-                        else:
-                            breed_registry_data = None
-                            breed_registry = None
-                    else:
-                        breed_registry_data = None
-                        breed_registry = None
-
                     if x_ray_status == "rm":
                         x_ray_data = None
                         x_ray = None
@@ -525,14 +461,6 @@ class UploadingAnimal(Resource):
                                 category_id=category_id,
                                 subcategory_id=subcategory_id,
                                 name=name,
-                                age_year=age_year,
-                                age_month=age_month,
-                                age_day=age_day,
-                                years=years,
-                                months=months,
-                                days=days,
-                                region_origin=region_origin,
-                                country_origin=country_origin,
                                 region_residence=region_residence,
                                 country_residence=country_residence,
                                 be_used_for_hu=be_used_for_hu,
@@ -554,20 +482,6 @@ class UploadingAnimal(Resource):
                                 brief_description_detect_lang=brief_description_detect_lang,
                                 description=description,
                                 description_detect_lang=description_detect_lang,
-                                mother=mother,
-                                mother_mother=mother_mother,
-                                mother_mother_mother=mother_mother_mother,
-                                mother_mother_father=mother_mother_father,
-                                mother_father=mother_father,
-                                mother_father_mother=mother_father_mother,
-                                mother_father_father=mother_father_father,
-                                father=father,
-                                father_mother=father_mother,
-                                father_mother_mother=father_mother_mother,
-                                father_mother_father=father_mother_father,
-                                father_father=father_father,
-                                father_father_mother=father_father_mother,
-                                father_father_father=father_father_father,
                                 page_url=None,
                                 url_01=url_01,
                                 url_02=url_02,
@@ -619,8 +533,6 @@ class UploadingAnimal(Resource):
                             animal_pdf_payload = AnimalPDF(
                                 user_id=user.id,
                                 animal_id=animal_payload.id,
-                                breed_registry=breed_registry,
-                                breed_registry_data=breed_registry_data,
                                 x_ray=x_ray,
                                 x_ray_data=x_ray_data
                             )
@@ -639,14 +551,6 @@ class UploadingAnimal(Resource):
                             animal_query.category_id = category_id
                             animal_query.subcategory_id = subcategory_id
                             animal_query.name = name
-                            animal_query.age_year = age_year
-                            animal_query.age_month = age_month
-                            animal_query.age_day = age_day
-                            animal_query.years = years
-                            animal_query.months = months
-                            animal_query.days = days
-                            animal_query.region_origin = region_origin
-                            animal_query.country_origin = country_origin
                             animal_query.region_residence = region_residence
                             animal_query.country_residence = country_residence
                             animal_query.be_used_for_hu = be_used_for_hu
@@ -668,20 +572,6 @@ class UploadingAnimal(Resource):
                             animal_query.brief_description_detect_lang = brief_description_detect_lang
                             animal_query.description = description
                             animal_query.description_detect_lang = description_detect_lang
-                            animal_query.mother = mother
-                            animal_query.mother_mother = mother_mother
-                            animal_query.mother_mother_mother = mother_mother_mother
-                            animal_query.mother_mother_father = mother_mother_father
-                            animal_query.mother_father = mother_father
-                            animal_query.mother_father_mother = mother_father_mother
-                            animal_query.mother_father_father = mother_father_father
-                            animal_query.father = father
-                            animal_query.father_mother = father_mother
-                            animal_query.father_mother_mother = father_mother_mother
-                            animal_query.father_mother_father = father_mother_father
-                            animal_query.father_father = father_father
-                            animal_query.father_father_mother = father_father_mother
-                            animal_query.father_father_father = father_father_father
                             animal_query.page_url = slugify(name)
                             animal_query.url_01 = url_01
                             animal_query.url_02 = url_02
@@ -729,16 +619,13 @@ class UploadingAnimal(Resource):
                                 .query.join(Animal.pdf) \
                                 .filter(Animal.id == animal_query.id).first()
 
-
-                            animal_pdf_payload.breed_registry = breed_registry,
-                            animal_pdf_payload.breed_registry_data = breed_registry_data,
                             animal_pdf_payload.x_ray = x_ray,
                             animal_pdf_payload.x_ray_data = x_ray_data
                             animal_pdf_payload.db_post()
 
                         data = {"status": 'success', 'animal_video_id': animal_video_payload.id,
                                 'video_01_data': video_01_data,
-                                "breed_registry_data": breed_registry_data, "x_ray_data": x_ray_data,
+                                "x_ray_data": x_ray_data,
                                 "is_editing": is_editing, "animal_id": animal_id}
                         return make_response(jsonify(data), 200)
                 else:
@@ -828,7 +715,6 @@ class ListOfUploadedAnimals(Resource):
                         for pdf in animal.pdf:
                             pdf_item = {
                                 "id": pdf.id,
-                                "breed_registry": pdf.breed_registry,
                                 "x_ray": pdf.x_ray,
                                 "created_at": pdf.created_at,
                                 "updated_at": pdf.updated_at
@@ -859,14 +745,6 @@ class ListOfUploadedAnimals(Resource):
                                 "category_id": animal.category_id,
                                 "subcategory_id": animal.subcategory_id,
                                 "name": animal.name,
-                                "age_year": animal.age_year,
-                                "age_month": animal.age_month,
-                                "age_day": animal.age_day,
-                                "years": animal.years,
-                                "months": animal.months,
-                                "days": animal.days,
-                                "region_origin": animal.region_origin,
-                                "country_origin": animal.country_origin,
                                 "region_residence": animal.region_residence,
                                 "country_residence": animal.country_residence,
                                 "be_used_for_hu": animal.be_used_for_hu,
@@ -888,20 +766,6 @@ class ListOfUploadedAnimals(Resource):
                                 "brief_description_detect_lang": animal.brief_description_detect_lang,
                                 "description": animal.description,
                                 "description_detect_lang": animal.description_detect_lang,
-                                "mother": animal.mother,
-                                "mother_mother": animal.mother_mother,
-                                "mother_mother_mother": animal.mother_mother_mother,
-                                "mother_mother_father": animal.mother_mother_father,
-                                "mother_father": animal.mother_father,
-                                "mother_father_mother": animal.mother_father_mother,
-                                "mother_father_father": animal.mother_father_father,
-                                "father": animal.father,
-                                "father_mother": animal.father_mother,
-                                "father_mother_mother": animal.father_mother_mother,
-                                "father_mother_father": animal.father_mother_father,
-                                "father_father": animal.father_father,
-                                "father_father_mother": animal.father_father_mother,
-                                "father_father_father": animal.father_father_father,
                                 "page_url": animal.page_url,
                                 "url_01": animal.url_01,
                                 "url_02": animal.url_02,
@@ -999,8 +863,6 @@ class EditOfUploadedAnimal(Resource):
                     for pdf in animal.pdf:
                         pdf_item = {
                             "id": pdf.id,
-                            "breed_registry": pdf.breed_registry,
-                            "breed_registry_data": pdf.breed_registry_data,
                             "x_ray": pdf.x_ray,
                             "x_ray_data": pdf.x_ray_data,
                             "created_at": pdf.created_at,
@@ -1012,14 +874,6 @@ class EditOfUploadedAnimal(Resource):
                             "category_id": animal.category_id,
                             "subcategory_id": animal.subcategory_id,
                             "name": animal.name,
-                            "age_year": animal.age_year,
-                            "age_month": animal.age_month,
-                            "age_day": animal.age_day,
-                            "years": animal.years,
-                            "months": animal.months,
-                            "days": animal.days,
-                            "region_origin": animal.region_origin,
-                            "country_origin": animal.country_origin,
                             "region_residence": animal.region_residence,
                             "country_residence": animal.country_residence,
                             "be_used_for_hu": animal.be_used_for_hu,
@@ -1041,20 +895,6 @@ class EditOfUploadedAnimal(Resource):
                             "brief_description_detect_lang": animal.brief_description_detect_lang,
                             "description": animal.description,
                             "description_detect_lang": animal.description_detect_lang,
-                            "mother": animal.mother,
-                            "mother_mother": animal.mother_mother,
-                            "mother_mother_mother": animal.mother_mother_mother,
-                            "mother_mother_father": animal.mother_mother_father,
-                            "mother_father": animal.mother_father,
-                            "mother_father_mother": animal.mother_father_mother,
-                            "mother_father_father": animal.mother_father_father,
-                            "father": animal.father,
-                            "father_mother": animal.father_mother,
-                            "father_mother_mother": animal.father_mother_mother,
-                            "father_mother_father": animal.father_mother_father,
-                            "father_father": animal.father_father,
-                            "father_father_mother": animal.father_father_mother,
-                            "father_father_father": animal.father_father_father,
                             "page_url": animal.page_url,
                             "url_01": animal.url_01,
                             "url_02": animal.url_02,
@@ -1229,8 +1069,6 @@ class InactivateOfUploadedAnimal(Resource):
                             "user_id": user_email_query.id,
                             "youtube_video_id": youtube_video_id,
                             "title": animal_query.name,
-                            "mother": animal_query.mother,
-                            "father": animal_query.father,
                             "animal_id": animal_id,
                             "category_name": category_query.name_en,
                             "subcategory_name": subcategory_query.name_en,
@@ -1295,8 +1133,6 @@ class ActivateOfUploadedAnimal(Resource):
                             "user_id": user_email_query.id,
                             "youtube_video_id": youtube_video_id,
                             "title": animal_query.name,
-                            "mother": animal_query.mother,
-                            "father": animal_query.father,
                             "animal_id": animal_id,
                             "category_name": category_query.name_en,
                             "subcategory_name": subcategory_query.name_en,
@@ -1323,9 +1159,8 @@ class AnimalAgeUpdate(Resource):
                 if animal_query is not None:
                     today = datetime.now()
                     for animal in animal_query:
-                        date1 = datetime(int(animal.age_year), int(animal.age_month), int(animal.age_day))
                         date2 = today
-                        diff = relativedelta.relativedelta(date2, date1)
+                        diff = relativedelta.relativedelta(date2)
                         animal.years = diff.years
                         animal.months = diff.months
                         animal.days = diff.days
@@ -1359,8 +1194,6 @@ class YouTubeUpload(Resource):
                                 "status": 'success',
                                 "youtube_video_id": video.youtube_id,
                                 "title": animal_query.name,
-                                "mother": animal_query.mother,
-                                "father": animal_query.father,
                                 "animal_id": animal_id
                             }
                             return make_response(jsonify(data), 200)

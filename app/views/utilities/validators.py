@@ -730,48 +730,26 @@ class Validation(object):
         return payload
 
     @staticmethod
-    def uploading_animal(category_id, subcategory_id, name, age_year, age_month, age_day, country_origin,
+    def uploading_animal(category_id, subcategory_id, name,
                          country_residence, is_be_used_for,
                          be_used_for_hu, be_used_for_en, be_used_for_de, be_used_for_fr,
                          be_used_for_es, is_gender, gender_hu,
                          gender_en, gender_de, gender_fr, gender_es, is_color, color_hu,
-                         color_en, color_de, color_fr, color_es, brief_description, description, mother,
-                         mother_mother, mother_mother_mother, mother_mother_father,
-                         mother_father, mother_father_mother, mother_father_father,
-                         father, father_mother, father_mother_mother,
-                         father_mother_father, father_father, father_father_mother,
-                         father_father_father, img_01_data, img_02_data, img_03_data,
-                         img_04_data, video_01_data, url_01, url_02, breed_registry_data,
+                         color_en, color_de, color_fr, color_es, brief_description, description, img_01_data,
+                         img_02_data, img_03_data,
+                         img_04_data, video_01_data, url_01, url_02,
                          x_ray_data, price):
 
         payload = {"status": "", "message": {
             "category_id": "",
             "subcategory_id": "",
             "name": "",
-            "age_year": "",
-            "age_month": "",
-            "age_day": "",
-            "country_origin": "",
             "country_residence": "",
             "be_used_for": "",
             "gender": "",
             "color": "",
             "brief_description": "",
             "description": "",
-            "mother": "",
-            "mother_mother": "",
-            "mother_mother_mother": "",
-            "mother_mother_father": "",
-            "mother_father": "",
-            "mother_father_mother": "",
-            "mother_father_father": "",
-            "father": "",
-            "father_mother": "",
-            "father_mother_mother": "",
-            "father_mother_father": "",
-            "father_father": "",
-            "father_father_mother": "",
-            "father_father_father": "",
             "img_01_data": "",
             "img_02_data": "",
             "img_03_data": "",
@@ -779,7 +757,6 @@ class Validation(object):
             "video_01_data": "",
             "url_01": "",
             "url_02": "",
-            "breed_registry_data": "",
             "x_ray_data": "",
             "price": ""
         }}
@@ -787,10 +764,6 @@ class Validation(object):
         category_id_result = bool(category_id and category_id.strip())
         subcategory_id_result = bool(subcategory_id and subcategory_id.strip())
         name_result = bool(name and name.strip())
-        age_year_result = bool(age_year and age_year.strip())
-        age_month_result = bool(age_month and age_month.strip())
-        age_day_result = bool(age_day and age_day.strip())
-        country_origin_result = bool(country_origin and country_origin.strip())
         country_residence_result = bool(country_residence and country_residence.strip())
         be_used_for_hu_result = bool(be_used_for_hu and be_used_for_hu.strip())
         be_used_for_en_result = bool(be_used_for_en and be_used_for_en.strip())
@@ -809,20 +782,6 @@ class Validation(object):
         color_es_result = bool(color_es and color_es.strip())
         brief_description_result = bool(brief_description and brief_description.strip())
         description_result = bool(description and description.strip())
-        mother_result = bool(mother and mother.strip())
-        mother_mother_result = bool(mother_mother and mother_mother.strip())
-        mother_mother_mother_result = bool(mother_mother_mother and mother_mother_mother.strip())
-        mother_mother_father_result = bool(mother_mother_father and mother_mother_father.strip())
-        mother_father_result = bool(mother_father and mother_father.strip())
-        mother_father_mother_result = bool(mother_father_mother and mother_father_mother.strip())
-        mother_father_father_result = bool(mother_father_father and mother_father_father.strip())
-        father_result = bool(father and father.strip())
-        father_mother_result = bool(father_mother and father_mother.strip())
-        father_mother_mother_result = bool(father_mother_mother and father_mother_mother.strip())
-        father_mother_father_result = bool(father_mother_father and father_mother_father.strip())
-        father_father_result = bool(father_father and father_father.strip())
-        father_father_mother_result = bool(father_father_mother and father_father_mother.strip())
-        father_father_father_result = bool(father_father_father and father_father_father.strip())
         img_01_data_result = bool(img_01_data and img_01_data.strip())
         img_02_data_result = bool(img_02_data and img_02_data.strip())
         img_03_data_result = bool(img_03_data and img_03_data.strip())
@@ -830,7 +789,6 @@ class Validation(object):
         video_01_data_result = bool(video_01_data and video_01_data.strip())
         url_01_result = bool(url_01 and url_01.strip())
         url_02_result = bool(url_02 and url_02.strip())
-        breed_registry_data_result = bool(breed_registry_data and breed_registry_data.strip())
         x_ray_data_result = bool(x_ray_data and x_ray_data.strip())
         price_pattern = RegExp.numeric()
         price_result = re.match(price_pattern, price)
@@ -850,25 +808,7 @@ class Validation(object):
         else:
             del payload["message"]["name"]
 
-        if age_year_result is not True:
-            payload["message"]["age_year"] = "anlihouse-A17"
-        else:
-            del payload["message"]["age_year"]
 
-        if age_month_result is not True:
-            payload["message"]["age_month"] = "anlihouse-A17"
-        else:
-            del payload["message"]["age_month"]
-
-        if age_day_result is not True:
-            payload["message"]["age_day"] = "anlihouse-A17"
-        else:
-            del payload["message"]["age_day"]
-
-        if country_origin_result is not True:
-            payload["message"]["country_origin"] = "anlihouse-A17"
-        else:
-            del payload["message"]["country_origin"]
 
         if country_residence_result is not True:
             payload["message"]["country_residence"] = "anlihouse-A17"
@@ -921,75 +861,6 @@ class Validation(object):
         else:
             del payload["message"]["description"]
 
-        if mother_result is not True:
-            payload["message"]["mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother"]
-
-        if mother_mother_result is not True:
-            payload["message"]["mother_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_mother"]
-
-        if mother_mother_mother_result is not True:
-            payload["message"]["mother_mother_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_mother_mother"]
-
-        if mother_mother_father_result is not True:
-            payload["message"]["mother_mother_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_mother_father"]
-
-        if mother_father_result is not True:
-            payload["message"]["mother_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_father"]
-
-        if mother_father_mother_result is not True:
-            payload["message"]["mother_father_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_father_mother"]
-
-        if mother_father_father_result is not True:
-            payload["message"]["mother_father_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["mother_father_father"]
-
-        if father_result is not True:
-            payload["message"]["father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father"]
-
-        if father_mother_result is not True:
-            payload["message"]["father_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_mother"]
-
-        if father_mother_mother_result is not True:
-            payload["message"]["father_mother_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_mother_mother"]
-
-        if father_mother_father_result is not True:
-            payload["message"]["father_mother_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_mother_father"]
-
-        if father_father_result is not True:
-            payload["message"]["father_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_father"]
-
-        if father_father_mother_result is not True:
-            payload["message"]["father_father_mother"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_father_mother"]
-
-        if father_father_father_result is not True:
-            payload["message"]["father_father_father"] = "anlihouse-A17"
-        else:
-            del payload["message"]["father_father_father"]
 
         if img_01_data_result is not True:
             payload["message"]["img_01_data"] = "anlihouse-A17"
@@ -1035,10 +906,6 @@ class Validation(object):
         else:
             del payload["message"]["url_02"]
 
-        if breed_registry_data_result is not True:
-            payload["message"]["breed_registry_data"] = "anlihouse-A17"
-        else:
-            del payload["message"]["breed_registry_data"]
 
         if x_ray_data_result is not True:
             payload["message"]["x_ray_data"] = "anlihouse-A17"
@@ -1053,29 +920,11 @@ class Validation(object):
         if payload.get("message", {}).get("category_id") \
                 or payload.get("message", {}).get("subcategory_id") \
                 or payload.get("message", {}).get("name") \
-                or payload.get("message", {}).get("age_year") \
-                or payload.get("message", {}).get("age_month") \
-                or payload.get("message", {}).get("age_day") \
-                or payload.get("message", {}).get("country_origin") \
                 or payload.get("message", {}).get("country_residence") \
                 or payload.get("message", {}).get("be_used_for") \
                 or payload.get("message", {}).get("gender") \
                 or payload.get("message", {}).get("color") \
                 or payload.get("message", {}).get("description") \
-                or payload.get("message", {}).get("mother") \
-                or payload.get("message", {}).get("mother_mother") \
-                or payload.get("message", {}).get("mother_mother_mother") \
-                or payload.get("message", {}).get("mother_mother_father") \
-                or payload.get("message", {}).get("mother_father") \
-                or payload.get("message", {}).get("mother_father_mother") \
-                or payload.get("message", {}).get("mother_father_father") \
-                or payload.get("message", {}).get("father") \
-                or payload.get("message", {}).get("father_mother") \
-                or payload.get("message", {}).get("father_mother_mother") \
-                or payload.get("message", {}).get("father_mother_father") \
-                or payload.get("message", {}).get("father_father") \
-                or payload.get("message", {}).get("father_father_mother") \
-                or payload.get("message", {}).get("father_father_father") \
                 or payload.get("message", {}).get("img_01_data") \
                 or payload.get("message", {}).get("img_02_data") \
                 or payload.get("message", {}).get("img_03_data") \
@@ -1083,7 +932,6 @@ class Validation(object):
                 or payload.get("message", {}).get("video_01_data") \
                 or payload.get("message", {}).get("url_01") \
                 or payload.get("message", {}).get("url_02") \
-                or payload.get("message", {}).get("breed_registry_data") \
                 or payload.get("message", {}).get("x_ray_data") \
                 or payload.get("message", {}).get("price"):
             payload["status"] = "error"
